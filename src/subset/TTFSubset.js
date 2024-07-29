@@ -9,7 +9,7 @@ export default class TTFSubset extends Subset {
     super(font);
     this.glyphEncoder = new TTFGlyphEncoder;
   }
-  
+
   _addGlyph(gid) {
     let glyph = this.font.getGlyph(gid);
     let glyf = glyph._decode();
@@ -37,7 +37,7 @@ export default class TTFSubset extends Subset {
 
     this.glyf.push(buffer);
     this.loca.offsets.push(this.offset);
-    
+
     this.hmtx.metrics.push({
       advance: glyph.advanceWidth,
       bearing: glyph._getMetrics().leftBearing
@@ -57,7 +57,8 @@ export default class TTFSubset extends Subset {
     this.glyf = [];
     this.offset = 0;
     this.loca = {
-      offsets: []
+      offsets: [],
+      version: this.font.loca.version // for subsetted fonts, keep the same version
     };
 
     this.hmtx = {
